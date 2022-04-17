@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+  webserver:
+    build:
+      context: ./dockerfiles/php-7.4
+    container_name: '${COMPOSE_PROJECT_NAME}-php-7.4'
+    restart: 'always'
+    extra_hosts:
+      - "${COMPOSE_PROJECT_NAME}:127.0.0.1"
+    ports:
+      - "${HOST_APACHE_HTTP_PORT}:80"
+      - "${HOST_APACHE_HTTPS_PORT}:443"
+    volumes:
+      - ${DOCUMENT_ROOT}:${APACHE_DOCUMENT_ROOT}
+      - ./config/php/php.ini:/usr/local/etc/php/php.ini
+      - ./config/vhosts:/etc/apache2/sites-enabled
+      - ./log/apache2:/var/log/apache2
+    environment:
+      APACHE_DOCUMENT_ROOT: ${APACHE_DOCUMENT_ROOT}
+      VIRTUALHOST_SERVER_NAME: ${COMPOSE_PROJECT_NAME}
+
+  database:
+    build:
+      context: ./dockerfiles/mysql-5.7
+    container_name: '${COMPOSE_PROJECT_NAME}-mysql-5.7'
+    restart: 'always'
+    ports:
+      - "127.0.0.1:${HOST_MYSQL_PORT}:3306"
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+      - ./log/mysql:/var/log/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+
+  phpmyadmin:
+    build:
+      context: ./dockerfiles/phpmyadmin
+    container_name: '${COMPOSE_PROJECT_NAME}-phpmyadmin'
+    environment:
+      PMA_HOST: database
+      MEMORY_LIMIT: ${PMA_MEMORY_LIMIT}
+      UPLOAD_LIMIT: ${PMA_UPLOAD_LIMIT}
+    ports:
+      - '${HOST_PMA_PORT}:80'
+    volumes:
+      - /sessions
+      - ./config/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
