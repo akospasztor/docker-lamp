@@ -1,0 +1,27 @@
+name: Docker Compose CI
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Start containers
+      run: docker-compose up -d
+
+    - name: Test apache
+      run: |
+        cd test
+        echo "GET / HTTP/1.0\r\n\r\n" | nc localhost 80 > query.txt
+        ./test-query.sh
+
+    - name: Test phpmyadmin
+      run: |
+        cd test
+        echo "GET / HTTP/1.0\r\n\r\n" | nc localhost 8080 > query.txt
+        ./test-query.sh
+
+    - name: Stop containers
+      run: docker-compose down
