@@ -13,6 +13,8 @@ The stack consists of three Docker images:
   - MySQL server version 5.7
   - PhpMyAdmin with the latest docker image version
 
+[![Docker Compose CI](https://github.com/akospasztor/docker-lamp/actions/workflows/ci.yml/badge.svg)](https://github.com/akospasztor/docker-lamp)
+
 ## Configuration
 
 The `.env` file contains some environmental variables to configure the LAMP
