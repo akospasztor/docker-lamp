@@ -15,6 +15,8 @@ The stack consists of three Docker images:
 
 [![Docker Compose CI](https://github.com/akospasztor/docker-lamp/actions/workflows/ci.yml/badge.svg)](https://github.com/akospasztor/docker-lamp)
 
+**Attention:** This docker stack is aimed for local development only. Do not use it in production environment.
+
 ## Configuration
 
 The `.env` file contains some environmental variables to configure the LAMP
