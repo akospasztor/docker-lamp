@@ -22,8 +22,8 @@ services:
 
   database:
     build:
-      context: ./dockerfiles/mysql-5.7
-    container_name: '${COMPOSE_PROJECT_NAME}-mysql-5.7'
+      context: ./dockerfiles/mysql-${MYSQL_VERSION}
+    container_name: '${COMPOSE_PROJECT_NAME}-mysql-${MYSQL_VERSION}'
     restart: 'always'
     ports:
       - "127.0.0.1:${HOST_MYSQL_PORT}:3306"
