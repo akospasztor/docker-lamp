@@ -5,7 +5,7 @@ services:
     build:
       context: ./dockerfiles/php-${PHP_VERSION}
     container_name: '${COMPOSE_PROJECT_NAME}-php-${PHP_VERSION}'
-    restart: 'always'
+    restart: 'unless-stopped'
     extra_hosts:
       - "${COMPOSE_PROJECT_NAME}:127.0.0.1"
     ports:
@@ -24,7 +24,7 @@ services:
     build:
       context: ./dockerfiles/mysql-${MYSQL_VERSION}
     container_name: '${COMPOSE_PROJECT_NAME}-mysql-${MYSQL_VERSION}'
-    restart: 'always'
+    restart: 'unless-stopped'
     ports:
       - "127.0.0.1:${HOST_MYSQL_PORT}:3306"
     volumes:
@@ -38,6 +38,7 @@ services:
     build:
       context: ./dockerfiles/phpmyadmin
     container_name: '${COMPOSE_PROJECT_NAME}-phpmyadmin'
+    restart: 'unless-stopped'
     environment:
       PMA_HOST: database
       MEMORY_LIMIT: ${PMA_MEMORY_LIMIT}
