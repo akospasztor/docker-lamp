@@ -10,7 +10,7 @@ without affecting the host environment.
 
 The stack consists of three Docker images:
 
-- Apache server with PHP version 7.4
+- Apache server with PHP version 7.4 and 8.2
 - MySQL server versions 5.7 and 8.0
 - PhpMyAdmin with the latest docker image version
 
