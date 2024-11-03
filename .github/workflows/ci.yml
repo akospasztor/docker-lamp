@@ -14,14 +14,12 @@ jobs:
     - name: Test apache
       run: |
         cd test
-        echo "GET / HTTP/1.0\r\n\r\n" | nc localhost 80 > query.txt
-        ./test-query.sh
+        curl localhost:80
 
     - name: Test phpmyadmin
       run: |
         cd test
-        echo "GET / HTTP/1.0\r\n\r\n" | nc localhost 8080 > query.txt
-        ./test-query.sh
+        curl localhost:8080
 
     - name: Stop containers
-      run: docker-compose down
+      run: docker compose down
