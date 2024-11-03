@@ -29,8 +29,8 @@ Project settings:
 - `COMPOSE_PROJECT_NAME`: This variable defines the name of the virtual host
   (see below) and prefixes the docker container names as well as the created
   network for the containers.
-- `DOCUMENT_ROOT`: The specified folder is mounted to the apache container as
-  a bind mount. The contents of this folder is served with the apache server.
+- `LOCAL_DOCUMENT_ROOT`: The specified folder is mounted to the apache container
+  as a bind mount. The contents of this folder is served with the apache server.
 
 Port settings:
 
